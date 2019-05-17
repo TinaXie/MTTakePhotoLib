@@ -1,9 +1,10 @@
-use_frameworks!
+#use_frameworks!
 
 platform :ios, '8.0'
 
 target 'MTTakePhotoLib_Example' do
   pod 'MTTakePhotoLib', :path => '../'
+  pod 'MTToolsLib', :git => 'git@github.com:TinaXie/MTToolsLib.git'
 
   target 'MTTakePhotoLib_Tests' do
     inherit! :search_paths
