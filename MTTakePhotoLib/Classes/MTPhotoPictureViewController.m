@@ -175,19 +175,29 @@
     self.stillImageConnection = stillImageConnection;
     
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-        NSData *imgData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-        
-        if (imgData == nil) {
-            NSLog(@"===no more image data");
-            return;
-        }
-        [self stopAVCapture];
-        
-        UIImage *originImg = [UIImage imageWithData:imgData];
-        [self getTakeImage:originImg];
-        [self showCaptureImage];
+        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            NSData *imgData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            
+            if (error) {
+                NSLog(@"===image data error:%@", error.localizedDescription);
+                return;
+            }
+            
+            if (imgData == nil ) {
+                NSLog(@"===no more image data");
+                return;
+            }
+            
+            [self stopAVCapture];
+            
+            UIImage *originImg = [UIImage imageWithData:imgData];
+            [self getTakeImage:originImg];
+            [self showCaptureImage];
+        });
     }];
 }
+
 
 - (void)getTakeImage:(UIImage *)originImg {
     //先按比例缩放
@@ -203,6 +213,8 @@
     takeRectW.size.height = scaleImage.size.height;
     UIImage *cropImage1 = [scaleImage cropImageInRect:takeRectW];
 
+    
+    
     //修正preview图片大于取图的高度 先将图片放大后再进行竖向截图
     CGFloat preferredH = self.takeView.previewLayer.preferredFrameSize.height;
     if (preferredH > scaleImage.size.height) {

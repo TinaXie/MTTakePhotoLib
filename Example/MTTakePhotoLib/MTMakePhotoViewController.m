@@ -34,8 +34,8 @@
 
 - (IBAction)goToPhoto:(id)sender {
     MTPhotoPictureViewController *photoVC = [[MTPhotoPictureViewController alloc] init];
-    photoVC.photoFinishBlock = ^(UIImage * _Nonnull img, UIImage * _Nonnull scaleImage) {
-        self.imgView.image = scaleImage;
+    photoVC.photoFinishBlock = ^(UIImage * _Nonnull img) {
+        self.imgView.image = img;
     };
     [self presentViewController:photoVC animated:YES completion:nil];
 }

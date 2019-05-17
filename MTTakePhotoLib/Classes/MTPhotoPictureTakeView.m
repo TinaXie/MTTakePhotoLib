@@ -129,14 +129,20 @@
     }];
     
     self.photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.photoBtn.backgroundColor = [UIColor whiteColor];
     [self.bottomView addSubview:self.photoBtn];
     
+    CGFloat photoBtnW = 60.0;
     [self.photoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.bottomView.mas_centerX);
         make.bottom.mas_equalTo(self.bottomView).mas_offset(-20);
-        make.width.height.mas_equalTo(60.0);
+        make.width.height.mas_equalTo(photoBtnW);
     }];
+    
+    self.photoBtn.backgroundColor = [UIColor whiteColor];
+    self.photoBtn.layer.cornerRadius = photoBtnW / 2;
+    self.photoBtn.layer.borderWidth = 2;
+    self.photoBtn.layer.borderColor = [UIColor blackColor].CGColor;
+    [self.photoBtn.layer masksToBounds];
     
     
     self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -285,5 +291,6 @@
     [self.lineView cornerWithRadius:0.1 borderColor:[UIColor whiteColor]];
     self.previewLayer.frame = self.videoView.bounds;
 }
+
 
 @end
