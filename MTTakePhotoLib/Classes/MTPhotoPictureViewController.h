@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) void(^photoFinishBlock)(UIImage *img);
 
+//框上面的描述文字
+@property (nonatomic, strong, nullable) NSString *desc;
+
 @end
 
 NS_ASSUME_NONNULL_END

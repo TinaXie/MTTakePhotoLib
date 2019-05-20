@@ -74,7 +74,6 @@
     [self.flashBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self).mas_offset(15.0);
         make.left.mas_equalTo(self).mas_offset(15.0);
-
         make.width.mas_equalTo(80);
         make.height.mas_equalTo(40);
     }];
@@ -102,8 +101,8 @@
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).mas_offset(15.0);
         make.centerX.mas_equalTo(self.mas_centerX);
-        make.centerY.mas_equalTo(self.mas_centerY).multipliedBy(0.8);
-        make.height.mas_equalTo(self.mas_height).multipliedBy(0.4);
+        make.centerY.mas_equalTo(self.mas_centerY).multipliedBy(0.9);
+        make.height.mas_equalTo(self.mas_height).multipliedBy(0.25);
     }];
     
     

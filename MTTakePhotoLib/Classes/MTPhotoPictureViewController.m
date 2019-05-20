@@ -109,6 +109,7 @@
     [self.takeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
     }];
+    self.takeView.descLabel.text = self.desc;
     [self.takeView loadAVSession:self.session imageOutput:self.stillImageOutput];
     [self.takeView.photoBtn addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.takeView.cancelBtn addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];

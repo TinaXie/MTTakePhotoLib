@@ -37,6 +37,7 @@
     photoVC.photoFinishBlock = ^(UIImage * _Nonnull img) {
         self.imgView.image = img;
     };
+    photoVC.desc = nil;
     [self presentViewController:photoVC animated:YES completion:nil];
 }
 
