@@ -147,6 +147,7 @@
     self.cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cancelBtn.backgroundColor = [UIColor clearColor];
     [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    
     [self.bottomView addSubview:self.cancelBtn];
     
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -167,6 +168,11 @@
 //    }];
     
     self.flashBtn.hidden = self.changeCameraBtn.hidden = YES;
+    
+    self.flashBtn.titleLabel.textColor = self.cancelBtn.titleLabel.textColor = [UIColor whiteColor];
+    self.flashBtn.titleLabel.font = self.cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.flashBtn.backgroundColor = self.cancelBtn.backgroundColor = [UIColor clearColor];
+    
 }
 
 - (CGRect)getCoverRect {
