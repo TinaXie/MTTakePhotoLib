@@ -235,6 +235,9 @@
     CGFloat outSizeW = self.takeView.frame.size.width;
     CGFloat ratio = outSizeW / originImg.size.width;
     CGFloat outRatio = 2;
+    if ((ratio * outRatio) > 1) {
+        outRatio = 1;
+    }
     UIImage *scaleImage = [originImg scaleImageToRatio:ratio * outRatio];
 
     CGRect coverRect = [self.takeView getCoverRect];
