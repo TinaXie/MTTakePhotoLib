@@ -200,7 +200,7 @@
 }
 
 
-- (void)getTakeImage:(UIImage *)originImg {
+- (void)getTakeImage1:(UIImage *)originImg {
     //先按比例缩放
     CGFloat outSizeW = self.takeView.frame.size.width;
     CGFloat ratio = outSizeW / originImg.size.width;
@@ -214,8 +214,6 @@
     takeRectW.size.height = scaleImage.size.height;
     UIImage *cropImage1 = [scaleImage cropImageInRect:takeRectW];
 
-    
-    
     //修正preview图片大于取图的高度 先将图片放大后再进行竖向截图
     CGFloat preferredH = self.takeView.previewLayer.preferredFrameSize.height;
     if (preferredH > scaleImage.size.height) {
@@ -228,6 +226,42 @@
     takeRectH.size.width = cropImage1.size.width;
     
     UIImage *cropImage = [cropImage1 cropImageInRect:takeRectH];
+    self.pictureImage = cropImage;
+}
+
+
+- (void)getTakeImage:(UIImage *)originImg {
+    //先按比例缩放
+    CGFloat outSizeW = self.takeView.frame.size.width;
+    CGFloat ratio = outSizeW / originImg.size.width;
+    CGFloat outRatio = 2;
+    UIImage *scaleImage = [originImg scaleImageToRatio:ratio * outRatio];
+
+    CGRect coverRect = [self.takeView getCoverRect];
+    coverRect = CGRectMake(coverRect.origin.x * outRatio,
+                          coverRect.origin.y * outRatio,
+                          coverRect.size.width * outRatio,
+                          coverRect.size.height * outRatio);
+
+    //先横向截屏
+    CGRect takeRectW = coverRect;
+    takeRectW.origin.y = 0;
+    takeRectW.size.height = scaleImage.size.height;
+    UIImage *cropImage1 = [scaleImage cropImageInRect:takeRectW];
+
+    //修正preview图片大于取图的高度 先将图片放大后再进行竖向截图
+    CGFloat preferredH = self.takeView.previewLayer.preferredFrameSize.height;
+    CGFloat scaleImgH = scaleImage.size.height;
+    if (preferredH * outRatio > scaleImgH) {
+        CGFloat ratio = preferredH * outRatio / scaleImgH;
+        cropImage1 = [cropImage1 scaleImageToRatio:ratio];
+    }
+    
+    CGRect takeRectH = coverRect;
+    takeRectH.origin.x = 0;
+    takeRectH.size.width = cropImage1.size.width;
+    UIImage *cropImage = [cropImage1 cropImageInRect:takeRectH];
+
     self.pictureImage = cropImage;
 }
 
